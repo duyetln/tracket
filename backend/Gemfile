@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rake'
 gem 'sinatra'
-gem 'pg'
+gem 'mysql2'
 gem 'bcrypt'
 gem 'activerecord', require: 'active_record'
 gem 'yajl-ruby', require: 'yajl'
