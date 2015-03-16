@@ -1,0 +1,31 @@
+source 'http://rubygems.org'
+
+gem 'rake'
+gem 'sinatra'
+gem 'pg'
+gem 'bcrypt'
+gem 'activerecord', require: 'active_record'
+gem 'yajl-ruby', require: 'yajl'
+gem 'rack-parser', require: 'rack/parser'
+gem 'hashie'
+gem 'sinatra-contrib'
+gem 'active_model_serializers'
+
+group :development do
+  gem 'thin'
+end
+
+group :test do
+  gem 'timecop'
+  gem 'faker'
+  gem 'rspec'
+  gem 'shoulda-matchers'
+  gem 'factory_girl'
+  gem 'database_cleaner'
+  gem 'rack-test', require: 'rack/test'
+  gem 'simplecov'
+end
+
+group :development, :test do
+  gem 'pry'
+end

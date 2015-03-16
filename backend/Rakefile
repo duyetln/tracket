@@ -1,0 +1,88 @@
+task :boot do
+  require './boot'
+end
+
+namespace :db do
+  desc 'Migrate the database (options: VERSION=x)'
+  task :migrate => :boot do
+    ActiveRecord::Migration.verbose = true
+    ActiveRecord::Migrator.migrate 'db/migrate', ENV['VERSION'] ? ENV['VERSION'].to_i : nil
+    Rake::Task['db:schema:dump'].invoke
+  end
+
+  desc 'Rolls the schema back to the previous version (specify steps w/ STEP=n)'
+  task :rollback => :boot do
+    ActiveRecord::Migrator.rollback 'db/migrate', ENV['STEP'] ? ENV['STEP'].to_i : 1
+  end
+
+  desc 'Populate database with sample data'
+  task :seed => :boot do
+    require 'db/seeds'
+  end
+
+  namespace :schema do
+    desc 'Dump database schema'
+    task :dump => :boot do
+      File.open('db/schema.rb', 'w:utf-8') do |file|
+        ActiveRecord::SchemaDumper.dump ActiveRecord::Base.connection, file
+      end
+    end
+
+    desc 'Load database schema'
+    task :load => :boot do
+      load 'db/schema.rb' if File.exist?('db/schema.rb')
+    end
+  end
+end
+
+namespace :spec do
+  require 'rspec/core/rake_task'
+
+  namespace :unit do
+    desc 'Run model unit tests'
+    RSpec::Core::RakeTask.new(:models) do |task|
+      task.verbose = false
+      task.pattern = 'spec/models/**/*_spec.rb'
+      task.rspec_opts = '--profile'
+    end
+
+    desc 'Run service unit tests'
+    RSpec::Core::RakeTask.new(:services) do |task|
+      task.verbose = false
+      task.pattern = 'spec/services/**/*_spec.rb'
+      task.rspec_opts = '--profile'
+    end
+
+    desc 'Run all unit tests'
+    task :all => [:models, :services]
+  end
+
+  namespace :integration do
+    desc 'Run common usecase integration tests'
+    RSpec::Core::RakeTask.new(:usecases) do |task|
+      task.verbose = false
+      task.pattern = 'spec/integration/**/*_spec.rb'
+      task.rspec_opts == '--profile'
+    end
+
+    desc 'Run all integration tests'
+    task :all => [:usecases]
+  end
+
+  desc 'Run all tests'
+  task :all => ['unit:all', 'integration:all']
+end
+
+desc 'Start a pry session'
+task :pry do
+  system(<<-EOF
+    bundle exec pry -I. -r ./boot -e '
+      if ENV["RACK_ENV"] == "test"
+        Mail.defaults { delivery_method :smtp, address: "localhost", port: 1025 }
+        FactoryGirl.find_definitions
+        FactoryGirl.lint
+      end
+    '
+  EOF
+  )
+end
