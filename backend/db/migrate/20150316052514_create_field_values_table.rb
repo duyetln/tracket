@@ -17,9 +17,11 @@ class CreateFieldValuesTable < ActiveRecord::Migration
 
     add_foreign_key :field_values, :issues
     add_foreign_key :field_values, :fields
+    add_foreign_key :field_values, :options, column: :option_value
   end
 
   def down
+    remove_foreign_key :field_values, column: :option_value
     remove_foreign_key :field_values, :fields
     remove_foreign_key :field_values, :issues
 

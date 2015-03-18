@@ -26,9 +26,10 @@ ActiveRecord::Schema.define(version: 20150316052514) do
     t.datetime "updated_at",                                  null: false
   end
 
-  add_index "field_values", ["field_id"], name: "fk_rails_3d2ee1b4bd", using: :btree
+  add_index "field_values", ["field_id"], name: "fk_rails_b6a0b63097", using: :btree
   add_index "field_values", ["issue_id", "field_id"], name: "index_field_values_on_issue_id_and_field_id", using: :btree
   add_index "field_values", ["issue_id"], name: "index_field_values_on_issue_id", using: :btree
+  add_index "field_values", ["option_value"], name: "fk_rails_0d28eb5321", using: :btree
 
   create_table "fields", force: :cascade do |t|
     t.integer  "project_id", limit: 4
@@ -50,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150316052514) do
   end
 
   add_index "issues", ["number"], name: "index_issues_on_number", using: :btree
-  add_index "issues", ["project_id"], name: "fk_rails_3ad9e2ec7a", using: :btree
+  add_index "issues", ["project_id"], name: "fk_rails_fd483d76f4", using: :btree
 
   create_table "options", force: :cascade do |t|
     t.integer  "field_id",   limit: 4
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150316052514) do
 
   add_foreign_key "field_values", "fields"
   add_foreign_key "field_values", "issues"
+  add_foreign_key "field_values", "options", column: "option_value"
   add_foreign_key "fields", "projects"
   add_foreign_key "issues", "projects"
   add_foreign_key "options", "fields"
