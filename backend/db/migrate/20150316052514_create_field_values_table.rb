@@ -1,8 +1,8 @@
 class CreateFieldValuesTable < ActiveRecord::Migration
   def up
     create_table  :field_values do |t|
-      t.integer   :issue_id
-      t.integer   :field_id
+      t.integer   :issue_id, null: false
+      t.integer   :field_id, null: false
       t.string    :string_value
       t.text      :text_value
       t.integer   :integer_value

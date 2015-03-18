@@ -1,9 +1,9 @@
 class CreateIssuesTable < ActiveRecord::Migration
   def up
     create_table  :issues do |t|
-      t.integer   :project_id
-      t.integer   :number
-      t.string    :name
+      t.integer   :project_id, null: false
+      t.integer   :number, null: false
+      t.string    :name, null: false
       t.text      :description
       t.timestamps null: false
     end

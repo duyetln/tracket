@@ -1,9 +1,9 @@
 class CreateFieldsTable < ActiveRecord::Migration
   def up
     create_table  :fields do |t|
-      t.integer   :project_id
-      t.string    :name
-      t.string    :type
+      t.integer   :project_id, null: false
+      t.string    :name, null: false
+      t.string    :type, null: false
       t.timestamps null: false
     end
 

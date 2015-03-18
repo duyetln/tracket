@@ -1,8 +1,8 @@
 class CreateOptionsTable < ActiveRecord::Migration
   def up
     create_table  :options do |t|
-      t.integer   :field_id
-      t.string    :name
+      t.integer   :field_id, null: false
+      t.string    :name, null: false
       t.timestamps null: false
     end
 
