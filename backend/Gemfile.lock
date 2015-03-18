@@ -98,6 +98,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   activerecord
+  activesupport
   bcrypt
   database_cleaner
   factory_girl
