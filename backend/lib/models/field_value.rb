@@ -9,4 +9,12 @@ class FieldValue < ActiveRecord::Base
     f.validates :issue
     f.validates :field
   end
+
+  def value
+    send(self.field.class.value_column)
+  end
+
+  def value=(value)
+    send("#{self.field.class.value_column}=", value)
+  end
 end
