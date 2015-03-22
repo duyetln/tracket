@@ -26,10 +26,10 @@ ActiveRecord::Schema.define(version: 20150316052514) do
     t.datetime "updated_at",                                  null: false
   end
 
-  add_index "field_values", ["field_id"], name: "fk_rails_01bd7b2f87", using: :btree
+  add_index "field_values", ["field_id"], name: "fk_rails_c2e67e58d8", using: :btree
   add_index "field_values", ["issue_id", "field_id"], name: "index_field_values_on_issue_id_and_field_id", using: :btree
   add_index "field_values", ["issue_id"], name: "index_field_values_on_issue_id", using: :btree
-  add_index "field_values", ["option_value"], name: "fk_rails_e35581598b", using: :btree
+  add_index "field_values", ["option_value"], name: "fk_rails_dfe2870c97", using: :btree
 
   create_table "fields", force: :cascade do |t|
     t.integer  "project_id", limit: 4,   null: false
@@ -51,16 +51,16 @@ ActiveRecord::Schema.define(version: 20150316052514) do
   end
 
   add_index "issues", ["number"], name: "index_issues_on_number", using: :btree
-  add_index "issues", ["project_id"], name: "fk_rails_474ea3093b", using: :btree
+  add_index "issues", ["project_id"], name: "fk_rails_6e8f8eeea4", using: :btree
 
   create_table "options", force: :cascade do |t|
-    t.integer  "field_id",   limit: 4,   null: false
-    t.string   "name",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "option_field_id", limit: 4,   null: false
+    t.string   "name",            limit: 255, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
-  add_index "options", ["field_id"], name: "index_options_on_field_id", using: :btree
+  add_index "options", ["option_field_id"], name: "index_options_on_option_field_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.string   "name",        limit: 255,   null: false
@@ -74,5 +74,5 @@ ActiveRecord::Schema.define(version: 20150316052514) do
   add_foreign_key "field_values", "options", column: "option_value"
   add_foreign_key "fields", "projects"
   add_foreign_key "issues", "projects"
-  add_foreign_key "options", "fields"
+  add_foreign_key "options", "fields", column: "option_field_id"
 end

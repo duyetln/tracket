@@ -31,7 +31,7 @@ class DateTimeField < Field
 end
 
 class OptionField < Field
-  has_many :options, inverse_of: :field
+  has_many :options, inverse_of: :option_field
 
   def self.value_column
     :option_value

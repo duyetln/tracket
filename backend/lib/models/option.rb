@@ -1,16 +1,7 @@
 class Option < ActiveRecord::Base
   attr_readonly :field_id
 
-  belongs_to :field, inverse_of: :options
+  belongs_to :option_field, inverse_of: :options
 
-  validates :field, presence: true
-  validate :ensure_option_field
-
-  protected
-
-  def ensure_option_field
-    unless field.class.name == 'OptionField'
-      errors.add(:field, 'must be OptionField')
-    end
-  end
+  validates :option_field, presence: true
 end
