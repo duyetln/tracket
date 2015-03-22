@@ -1,6 +1,4 @@
 class Field < ActiveRecord::Base
-  self.abstract_class = true
-
   attr_readonly :project_id
 
   belongs_to :project, inverse_of: :fields
