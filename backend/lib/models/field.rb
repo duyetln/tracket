@@ -8,4 +8,6 @@ class Field < ActiveRecord::Base
     f.validates :name
     f.validates :project
   end
+
+  delegate :value_column, to: :class
 end

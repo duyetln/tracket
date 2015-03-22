@@ -11,10 +11,10 @@ class FieldValue < ActiveRecord::Base
   end
 
   def value
-    send(self.field.class.value_column)
+    send(self.field.value_column)
   end
 
   def value=(value)
-    send("#{self.field.class.value_column}=", value)
+    send("#{self.field.value_column}=", value)
   end
 end
