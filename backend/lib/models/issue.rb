@@ -18,11 +18,19 @@ class Issue < ActiveRecord::Base
   delegate :fields, to: :project
 
   def [](field)
-    field.is_a?(Field) ? field_values(field).first!.value : super
+    unless field.is_a?(Field)
+      return super
+    end
+    field_value(field).first!.value
   end
 
   def []=(field, value)
-    field.is_a?(Field) ? (field_values(field).first_or_initialize!.value = value) : super
+    unless field.is_a?(Field)
+      return super
+    end
+    field_value = field_value(field).first_or_initialize
+    field_values << field_value
+    field_value.value = value
   end
 
   protected
