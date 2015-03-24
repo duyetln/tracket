@@ -1,4 +1,5 @@
 require 'models/field'
+require 'models/field_value'
 
 class Issue < ActiveRecord::Base
   attr_readonly :project_id
@@ -13,41 +14,32 @@ class Issue < ActiveRecord::Base
     i.validates :project
     i.validates :field_values
   end
-  validate :ensure_field_values_presence
+
+  after_initialize :initialize_values
 
   delegate :fields, to: :project
 
   def [](field)
-    unless field.is_a?(Field)
-      return super
-    end
-    field_value(field).first!.value
+    return super unless field.is_a?(Field)
+    field_value(field).value
   end
 
   def []=(field, value)
-    unless field.is_a?(Field)
-      return super
-    end
-    field_value = field_value(field).first_or_initialize
-    field_values << field_value
-    field_value.value = value
+    return super unless field.is_a?(Field)
+    field_value(field).value = value
   end
 
   protected
 
-  def ensure_field_values_presence
-    fields.each do |field|
-      unless field_values.detect { |fv| fv.field == field }
-        errors.add(:field_values, "is missing value for '#{field.name}'")
+  def initialize_values
+    if new_record?
+      fields.each do |field|
+        field_values << FieldValue.new(field: field)
       end
     end
   end
 
   def field_value(field)
-    field_values.where(field_id: field(field).id)
-  end
-
-  def field(id)
-    fields.where(id: (id.is_a?(Field) ? id.id : id)).first!
+    field_values.find { |fv| fv.field == fields.find(field.id) }
   end
 end
