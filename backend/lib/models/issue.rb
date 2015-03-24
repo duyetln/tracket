@@ -9,7 +9,7 @@ class Issue < ActiveRecord::Base
   has_many :field_values, inverse_of: :issue
 
   with_options presence: true do |i|
-    i.validates :number
+    i.validates :number, uniqueness: { scope: :project_id }
     i.validates :name
     i.validates :project
     i.validates :field_values
@@ -33,6 +33,7 @@ class Issue < ActiveRecord::Base
 
   def initialize_values
     if new_record?
+      self.number = self.class.where(project_id: project_id).maximum(:number) + 1
       fields.each do |field|
         field_values << FieldValue.new(field: field)
       end
