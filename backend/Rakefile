@@ -7,7 +7,7 @@ namespace :db do
   task :migrate => :boot do
     ActiveRecord::Migration.verbose = true
     ActiveRecord::Migrator.migrate 'db/migrate', ENV['VERSION'] ? ENV['VERSION'].to_i : nil
-    Rake::Task['db:schema:dump'].invoke
+    Rake::Task['db:schema:dump'].invoke unless ENV['RACK_ENV'] == 'test'
   end
 
   desc 'Rolls the schema back to the previous version (specify steps w/ STEP=n)'
@@ -100,7 +100,6 @@ task :pry do
   system(<<-EOF
     bundle exec pry -I. -r ./boot -e '
       if ENV["RACK_ENV"] == "test"
-        Mail.defaults { delivery_method :smtp, address: "localhost", port: 1025 }
         FactoryGirl.find_definitions
         FactoryGirl.lint
       end
