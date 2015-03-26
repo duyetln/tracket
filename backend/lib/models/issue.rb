@@ -9,13 +9,15 @@ class Issue < ActiveRecord::Base
   has_many :field_values, inverse_of: :issue
 
   with_options presence: true do |i|
-    i.validates :number, uniqueness: { scope: :project_id }
     i.validates :name
     i.validates :project
     i.validates :field_values
   end
+  validates :number, uniqueness: { scope: :project_id }
+  validate :ensure_single_field_value
 
-  after_initialize :initialize_values
+  after_initialize :initialize_field_values
+  before_create :set_number
 
   delegate :fields, to: :project
 
@@ -31,11 +33,20 @@ class Issue < ActiveRecord::Base
 
   protected
 
-  def initialize_values
-    self.number = self.class.where(project_id: project_id).maximum(:number) + 1 if new_record?
+  def ensure_single_field_value
+    unless fields.all? { |f| field_values.select { |fv| fv.field == f }.size == 1 }
+      errors.add(:issue, 'must have one field value for each field')
+    end
+  end
+
+  def initialize_field_values
     fields.reject { |f| field_value(f) }.each do |field|
       field_values << FieldValue.new(field: field)
     end
+  end
+
+  def set_number
+    self.number = (self.class.where(project_id: project_id).maximum(:number) || 0) + 1
   end
 
   def field_value(field)

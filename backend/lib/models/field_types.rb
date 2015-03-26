@@ -24,7 +24,7 @@ class DecimalField < Field
   end
 end
 
-class DateTimeField < Field
+class DatetimeField < Field
   def self.value_column
     :datetime_value
   end
