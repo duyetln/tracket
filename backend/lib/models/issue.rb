@@ -33,8 +33,8 @@ class Issue < ActiveRecord::Base
 
   def initialize_values
     self.number = self.class.where(project_id: project_id).maximum(:number) + 1 if new_record?
-    fields.each do |field|
-      field_values << FieldValue.new(field: field) unless field_value(field)
+    fields.reject { |f| field_value(f) }.each do |field|
+      field_values << FieldValue.new(field: field)
     end
   end
 
