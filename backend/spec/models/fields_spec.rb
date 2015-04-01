@@ -42,8 +42,8 @@ describe DecimalField do
   it_behaves_like 'field'
 end
 
-describe DatetimeField do
-  let(:value_column) { :datetime_value }
+describe DateTimeField do
+  let(:value_column) { :date_time_value }
 
   it_behaves_like 'field'
 end

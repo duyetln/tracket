@@ -7,7 +7,7 @@ class CreateFieldValuesTable < ActiveRecord::Migration
       t.text      :text_value
       t.integer   :integer_value
       t.decimal   :decimal_value
-      t.datetime  :datetime_value
+      t.datetime  :date_time_value
       t.integer   :option_value
       t.timestamps null: false
     end

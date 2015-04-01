@@ -11,7 +11,7 @@ FactoryGirl.define do
         :text_field,
         :integer_field,
         :decimal_field,
-        :datetime_field,
+        :date_time_field,
         :option_field
       ].sample,
       project: project

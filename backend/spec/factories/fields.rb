@@ -19,7 +19,7 @@ FactoryGirl.define do
     project { build :project }
   end
 
-  factory :datetime_field do
+  factory :date_time_field do
     name 'Datetime field'
     project { build :project }
   end

@@ -57,7 +57,7 @@ describe FieldValue do
   end
 
   context 'datetime field value' do
-    let(:field_type) { :datetime_field }
+    let(:field_type) { :date_time_field }
     let(:value) { DateTime.now }
 
     include_examples 'field value type'
