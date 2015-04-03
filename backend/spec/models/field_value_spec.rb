@@ -1,24 +1,24 @@
 require 'models/spec_setup'
 
-shared_examples 'field value type' do
-  let(:field) { FactoryGirl.build field_type }
-  let(:model_args) { [ :field_value, field: field ] }
-  let(:value_column) { field.value_column }
-
-  describe '#value' do
-    it 'is determined by field\'s value_column' do
-      expect(model.value).to eq(model.send(value_column))
-    end
-  end
-
-  describe '#value=' do
-    it 'is determined by field\'s value_column' do
-      expect { model.value = value }.to change { model.send(value_column) }.to(value)
-    end
-  end
-end
-
 describe FieldValue do
+  shared_examples 'field value type' do
+    let(:field) { FactoryGirl.build field_type }
+    let(:model_args) { [ :field_value, field: field ] }
+    let(:value_column) { field.value_column }
+
+    describe '#value' do
+      it 'is determined by field\'s value_column' do
+        expect(model.value).to eq(model.send(value_column))
+      end
+    end
+
+    describe '#value=' do
+      it 'is determined by field\'s value_column' do
+        expect { model.value = value }.to change { model.send(value_column) }.to(value)
+      end
+    end
+  end
+
   it { is_expected.to have_readonly_attribute(:issue_id) }
   it { is_expected.to have_readonly_attribute(:field_id) }
 
