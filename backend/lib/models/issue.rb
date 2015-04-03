@@ -10,7 +10,6 @@ class Issue < ActiveRecord::Base
 
   with_options presence: true do |i|
     i.validates :name
-    i.validates :project
     i.validates :field_values
   end
   validates :number, uniqueness: { scope: :project_id }
