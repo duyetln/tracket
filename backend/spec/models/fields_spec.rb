@@ -5,7 +5,6 @@ describe Field do
     it { is_expected.to have_readonly_attribute(:project_id) }
 
     it { is_expected.to belong_to(:project).inverse_of(:fields) }
-    it { is_expected.to have_many(:field_values).inverse_of(:field) }
 
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:project) }

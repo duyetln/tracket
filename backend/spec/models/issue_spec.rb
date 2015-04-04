@@ -19,8 +19,13 @@ describe Issue do
 
   it { is_expected.to delegate_method(:fields).to(:project) }
 
-  it 'must have one field value for each field' do
+  it 'must have field values present' do
     model.field_values.clear
+    expect(model).to_not be_valid
+  end
+
+  it 'must have exactly one field value for each field' do
+    model.field_values << FieldValue.new(field: model.fields.sample)
     expect(model).to_not be_valid
   end
 

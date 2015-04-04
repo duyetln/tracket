@@ -34,7 +34,7 @@ class Issue < ActiveRecord::Base
 
   def ensure_single_field_value
     unless fields.all? { |f| field_values.select { |fv| fv.field == f }.size == 1 }
-      errors.add(:issue, 'must have one field value for each field')
+      errors.add(:issue, 'must have exactly one field value for each field')
     end
   end
 

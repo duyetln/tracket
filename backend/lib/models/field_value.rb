@@ -3,7 +3,7 @@ class FieldValue < ActiveRecord::Base
   attr_readonly :field_id
 
   belongs_to :issue, inverse_of: :field_values
-  belongs_to :field, inverse_of: :field_values
+  belongs_to :field
 
   with_options presence: true do |f|
     f.validates :issue
