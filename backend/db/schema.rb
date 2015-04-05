@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316052514) do
+ActiveRecord::Schema.define(version: 20150405063915) do
+
+  create_table "clauses", force: :cascade do |t|
+    t.integer  "parent_id",  limit: 4
+    t.string   "type",       limit: 255,                 null: false
+    t.boolean  "inversed",   limit: 1,   default: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "clauses", ["parent_id"], name: "index_clauses_on_parent_id", using: :btree
 
   create_table "field_values", force: :cascade do |t|
     t.integer  "issue_id",        limit: 4,                    null: false
@@ -69,6 +79,7 @@ ActiveRecord::Schema.define(version: 20150316052514) do
     t.datetime "updated_at",                null: false
   end
 
+  add_foreign_key "clauses", "clauses", column: "parent_id"
   add_foreign_key "field_values", "fields"
   add_foreign_key "field_values", "issues"
   add_foreign_key "field_values", "options", column: "option_value"
