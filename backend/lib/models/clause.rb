@@ -3,6 +3,7 @@ class Clause < ActiveRecord::Base
 
   belongs_to :parent, class_name: 'Clause', inverse_of: :clauses
   has_many :clauses, foreign_key: :parent_id, inverse_of: :parent
+  has_many :conditions, inverse_of: :clause
 
   validate :ensure_no_circular_reference
 
