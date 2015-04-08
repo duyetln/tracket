@@ -30,6 +30,10 @@ class Issue < ActiveRecord::Base
     field_value(field).value = value
   end
 
+  def satisfy?(clause_or_condition)
+    clause_or_condition.satisfy?(self)
+  end
+
   protected
 
   def ensure_single_field_value
