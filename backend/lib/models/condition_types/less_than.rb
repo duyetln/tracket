@@ -4,7 +4,7 @@ require 'models/field_types/text_field'
 require 'models/field_types/option_field'
 
 class LessThan < Condition
-  validates :field_class, exclusion: { in: [StringField, TextField, OptionField], message: '%{value} is not supported' }
+  validates :field_class, exclusion: { in: [StringField, TextField, OptionField], message: "#{self.name} is not supported for %{value}" }
 
   def satisfy?(issue)
     issue[field] < value
