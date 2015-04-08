@@ -18,4 +18,10 @@ class Condition < ActiveRecord::Base
   def value=(value)
     send("#{self.field.value_column}=", value)
   end
+
+  protected
+
+  def field_class
+    field.class
+  end
 end

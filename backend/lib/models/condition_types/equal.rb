@@ -2,6 +2,6 @@ require 'models/condition'
 
 class Equal < Condition
   def satisfy?(issue)
-    field.eq?(issue, value)
+    issue[field] == value
   end
 end
