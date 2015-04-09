@@ -99,6 +99,7 @@ DEPENDENCIES
   active_model_serializers
   activerecord
   activesupport
+  arel
   bcrypt
   database_cleaner
   factory_girl
