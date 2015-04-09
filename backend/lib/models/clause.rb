@@ -6,6 +6,7 @@ class Clause < ActiveRecord::Base
   has_many :conditions, inverse_of: :clause
 
   validate :ensure_no_circular_reference
+  validate :ensure_present_clauses_or_conditions
 
   protected
 
@@ -17,6 +18,12 @@ class Clause < ActiveRecord::Base
         break
       end
       parent = parent.parent
+    end
+  end
+  
+  def ensure_present_clauses_or_conditions
+    unless (clauses.size + conditions.size) > 1
+      errors.add(:clause, 'must have at least two literals (clause, condition)')
     end
   end
 end
