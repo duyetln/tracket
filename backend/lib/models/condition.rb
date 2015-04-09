@@ -24,4 +24,8 @@ class Condition < ActiveRecord::Base
   def field_class
     field.class
   end
+  
+  def flip(bool)
+    inversed? ? !bool : bool
+  end
 end

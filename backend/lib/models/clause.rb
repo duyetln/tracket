@@ -1,5 +1,6 @@
 class Clause < ActiveRecord::Base
   attr_readonly :parent_id
+  attr_readonly :inversed
 
   belongs_to :parent, class_name: 'Clause', inverse_of: :clauses
   has_many :clauses, foreign_key: :parent_id, inverse_of: :parent
@@ -9,6 +10,10 @@ class Clause < ActiveRecord::Base
   validate :ensure_present_clauses_or_conditions
 
   protected
+  
+  def flip(bool)
+    inversed? ? !bool : bool
+  end
 
   def ensure_no_circular_reference
     parent = self.parent

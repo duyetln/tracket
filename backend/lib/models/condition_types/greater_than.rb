@@ -7,6 +7,6 @@ class GreaterThan < Condition
   validates :field_class, exclusion: { in: [StringField, TextField, OptionField], message: "#{self.name} is not supported for %{value}" }
 
   def satisfy?(issue)
-    issue[field] > value
+    flip(issue[field] > value)
   end
 end
