@@ -24,8 +24,12 @@ class Condition < ActiveRecord::Base
   def field_class
     field.class
   end
-  
+
   def flip(bool)
     inversed? ? !bool : bool
+  end
+
+  def query_table
+    @query_table ||= Arel::Table.new(:field_values)
   end
 end
