@@ -25,8 +25,12 @@ class Condition < ActiveRecord::Base
     field.class
   end
 
-  def flip(bool)
+  def flip_bool(bool)
     inversed? ? !bool : bool
+  end
+  
+  def flip_query(query)
+    inversed? ? query.not : query 
   end
 
   def query_table
