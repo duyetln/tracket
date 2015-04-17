@@ -3,7 +3,6 @@ class CreateClausesTable < ActiveRecord::Migration
     create_table  :clauses do |t|
       t.integer   :parent_id
       t.string    :type, null: false
-      t.boolean   :inversed, default: false
       t.timestamps null: false
     end
 

@@ -28,10 +28,6 @@ class Clause < ActiveRecord::Base
     end
   end
 
-  def flip(bool)
-    inversed? ? !bool : bool
-  end
-
   def generate_table_alias
     "#{self.class.name.underscore}_#{SecureRandom.hex(4)}"
   end
