@@ -28,7 +28,7 @@ complete_date = DateTimeField.new name: 'Complete Date'
 project.fields << state << status << type << priority << version << start_date << complete_date
 project.save!
 
-10000.times do
+5000.times do
   issue = project.issues.new
   
   issue.name = ['Test Name 1', 'Test Name 2', 'Test Name 3', 'Test Name 4', 'Test Name 5', 'Test Name 6', 'Test Name 7'].sample
