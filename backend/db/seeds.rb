@@ -42,3 +42,12 @@ project.save!
   issue.save!
 end
 
+oc = OrClause.new
+oc.conditions << Equal.new(field: state, value: state.options.find_by(name: 'Open').id)
+oc.conditions << Equal.new(field: status, value: status.options.find_by(name: 'No Activity').id)
+
+ac = AndClause.new
+ac.conditions << Equal.new(field: type, value: type.options.find_by(name: 'Bug').id)
+ac.conditions << Equal.new(field: priority, value: priority.options.find_by(name: 'High').id)
+ac.clauses << oc
+ac.save!
