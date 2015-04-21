@@ -17,4 +17,8 @@ class GreaterThan < Condition
       )
     )
   end
+
+  def description
+    flip_description("#{field.description} > #{field.value_description(value)}")
+  end
 end

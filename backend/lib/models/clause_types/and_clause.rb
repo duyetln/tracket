@@ -17,4 +17,11 @@ class AndClause < Clause
       end
     end
   end
+
+  def description
+    cond_desc = conditions.map(&:description).join(' AND ')
+    clse_desc = clauses.map(&:description).map { |desc| "(#{desc})" }.join(' AND ')
+    clse_desc = "(#{cls_desc})" if conditions.size > 0 && clauses.size > 1
+    [cond_desc, clse_desc].select(&:present?).join(' AND ')
+  end
 end
