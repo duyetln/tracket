@@ -6,4 +6,8 @@ class OptionField < Field
   def self.value_column
     :option_value
   end
+  
+  def value_description(value)
+    "\"#{options.find(value).name}\""
+  end
 end
