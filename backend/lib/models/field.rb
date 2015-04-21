@@ -9,4 +9,8 @@ class Field < ActiveRecord::Base
   end
 
   delegate :value_column, to: :class
+  
+  def description
+    "\"#{name}\""
+  end
 end
