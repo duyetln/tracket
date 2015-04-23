@@ -20,7 +20,6 @@ class OrClause < Clause
   def description
     cond_desc = conditions.map(&:description).join(' OR ')
     clse_desc = clauses.map(&:description).map { |desc| "(#{desc})" }.join(' OR ')
-    clse_desc = "(#{cls_desc})" if conditions.size > 0 && clauses.size > 1
     [cond_desc, clse_desc].select(&:present?).join(' OR ')
   end
 end
