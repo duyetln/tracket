@@ -6,6 +6,6 @@ class DateTimeField < Field
   end
   
   def value_description(value)
-    "\"#{value}\""
+    "\"#{value.to_s(:rfc822)}\""
   end
 end
