@@ -19,19 +19,22 @@ describe Issue do
 
   it { is_expected.to delegate_method(:fields).to(:project) }
 
-  it 'must have field values present' do
-    model.field_values.clear
-    expect(model).to_not be_valid
+  context 'no field values' do
+    let(:subject) { model }
+    before(:each) { subject.field_values.clear }
+    it { is_expected.to_not be_valid }
   end
 
-  it 'must have exactly one field value for each field' do
-    model.field_values << FieldValue.new(field: model.fields.sample)
-    expect(model).to_not be_valid
+  context 'duplicate field values' do
+    let(:subject) { model }
+    before(:each) { subject.field_values << FieldValue.new(field: subject.fields.sample) }
+    it { is_expected.to_not be_valid }
   end
 
-  it 'does not allow changing project' do
-    model.project = FactoryGirl.build :project
-    expect(model).to_not be_valid
+  context 'changing project' do
+    let(:subject) { model }
+    before (:each) { subject.project = FactoryGirl.build :project }
+    it { is_expected.to_not be_valid }
   end
 
   describe '#[]=' do
