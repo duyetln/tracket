@@ -27,5 +27,11 @@ FactoryGirl.define do
   factory :option_field do
     name 'Option field'
     project { build :project }
+
+    after :build do |field|
+      field.options << Option.new(name: 'Option 1')
+      field.options << Option.new(name: 'Option 2')
+      field.options << Option.new(name: 'Option 3')
+    end
   end
 end
