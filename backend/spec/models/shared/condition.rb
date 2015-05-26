@@ -8,7 +8,6 @@ shared_examples 'condition' do
   it { is_expected.to belong_to(:clause).inverse_of(:conditions) }
   it { is_expected.to belong_to(:field) }
 
-  it { is_expected.to validate_presence_of(:clause) }
   it { is_expected.to validate_presence_of(:field) }
 
   describe '#description' do

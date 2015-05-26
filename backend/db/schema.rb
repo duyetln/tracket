@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150406020426) do
   add_index "clauses", ["parent_id"], name: "index_clauses_on_parent_id", using: :btree
 
   create_table "conditions", force: :cascade do |t|
-    t.integer  "clause_id",       limit: 4,                                    null: false
+    t.integer  "clause_id",       limit: 4
     t.integer  "field_id",        limit: 4,                                    null: false
     t.string   "type",            limit: 255,                                  null: false
     t.boolean  "inversed",        limit: 1,                    default: false
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20150406020426) do
   end
 
   add_index "conditions", ["clause_id"], name: "index_conditions_on_clause_id", using: :btree
-  add_index "conditions", ["field_id"], name: "fk_rails_49ba979586", using: :btree
-  add_index "conditions", ["option_value"], name: "fk_rails_9771b25512", using: :btree
+  add_index "conditions", ["field_id"], name: "fk_rails_54e0af363f", using: :btree
+  add_index "conditions", ["option_value"], name: "fk_rails_f1f8d3696a", using: :btree
 
   create_table "field_values", force: :cascade do |t|
     t.integer  "issue_id",        limit: 4,                    null: false
@@ -54,10 +54,10 @@ ActiveRecord::Schema.define(version: 20150406020426) do
     t.datetime "updated_at",                                   null: false
   end
 
-  add_index "field_values", ["field_id"], name: "fk_rails_5532adcc17", using: :btree
+  add_index "field_values", ["field_id"], name: "fk_rails_dad590565f", using: :btree
   add_index "field_values", ["issue_id", "field_id"], name: "index_field_values_on_issue_id_and_field_id", using: :btree
   add_index "field_values", ["issue_id"], name: "index_field_values_on_issue_id", using: :btree
-  add_index "field_values", ["option_value"], name: "fk_rails_310e2beb0b", using: :btree
+  add_index "field_values", ["option_value"], name: "fk_rails_52bf82ddfd", using: :btree
 
   create_table "fields", force: :cascade do |t|
     t.integer  "project_id", limit: 4,   null: false
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20150406020426) do
   end
 
   add_index "issues", ["number"], name: "index_issues_on_number", using: :btree
-  add_index "issues", ["project_id"], name: "fk_rails_a8fe978fc7", using: :btree
+  add_index "issues", ["project_id"], name: "fk_rails_ebab7b4e57", using: :btree
 
   create_table "options", force: :cascade do |t|
     t.integer  "option_field_id", limit: 4,   null: false

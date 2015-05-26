@@ -6,10 +6,7 @@ class Condition < ActiveRecord::Base
   belongs_to :clause, inverse_of: :conditions
   belongs_to :field
 
-  with_options presence: true do |c|
-    c.validates :clause
-    c.validates :field
-  end
+  validates :field, presence: true
 
   def value
     send(field.value_column)
@@ -30,7 +27,7 @@ class Condition < ActiveRecord::Base
   end
 
   def flip_query(query)
-    inversed? ? query.not : query 
+    inversed? ? query.not : query
   end
 
   def flip_description(description)

@@ -1,7 +1,7 @@
 class CreateConditionsTable < ActiveRecord::Migration
   def up
     create_table  :conditions do |t|
-      t.integer   :clause_id, null: false
+      t.integer   :clause_id
       t.integer   :field_id, null: false
       t.string    :type, null: false
       t.boolean   :inversed, default: false
