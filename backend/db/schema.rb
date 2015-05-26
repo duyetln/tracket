@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416010809) do
+ActiveRecord::Schema.define(version: 20150406020426) do
 
   create_table "clauses", force: :cascade do |t|
     t.integer  "parent_id",  limit: 4
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20150416010809) do
   end
 
   add_index "conditions", ["clause_id"], name: "index_conditions_on_clause_id", using: :btree
-  add_index "conditions", ["field_id"], name: "fk_rails_e9f4c5357f", using: :btree
-  add_index "conditions", ["option_value"], name: "fk_rails_acce3608ea", using: :btree
+  add_index "conditions", ["field_id"], name: "fk_rails_49ba979586", using: :btree
+  add_index "conditions", ["option_value"], name: "fk_rails_9771b25512", using: :btree
 
   create_table "field_values", force: :cascade do |t|
     t.integer  "issue_id",        limit: 4,                    null: false
@@ -54,14 +54,10 @@ ActiveRecord::Schema.define(version: 20150416010809) do
     t.datetime "updated_at",                                   null: false
   end
 
-  add_index "field_values", ["field_id", "date_time_value"], name: "index_field_values_on_field_id_and_date_time_value", using: :btree
-  add_index "field_values", ["field_id", "decimal_value"], name: "index_field_values_on_field_id_and_decimal_value", using: :btree
-  add_index "field_values", ["field_id", "integer_value"], name: "index_field_values_on_field_id_and_integer_value", using: :btree
-  add_index "field_values", ["field_id", "option_value"], name: "index_field_values_on_field_id_and_option_value", using: :btree
-  add_index "field_values", ["field_id", "string_value"], name: "index_field_values_on_field_id_and_string_value", using: :btree
+  add_index "field_values", ["field_id"], name: "fk_rails_5532adcc17", using: :btree
   add_index "field_values", ["issue_id", "field_id"], name: "index_field_values_on_issue_id_and_field_id", using: :btree
   add_index "field_values", ["issue_id"], name: "index_field_values_on_issue_id", using: :btree
-  add_index "field_values", ["option_value"], name: "fk_rails_8bc0271cf5", using: :btree
+  add_index "field_values", ["option_value"], name: "fk_rails_310e2beb0b", using: :btree
 
   create_table "fields", force: :cascade do |t|
     t.integer  "project_id", limit: 4,   null: false
@@ -83,7 +79,7 @@ ActiveRecord::Schema.define(version: 20150416010809) do
   end
 
   add_index "issues", ["number"], name: "index_issues_on_number", using: :btree
-  add_index "issues", ["project_id"], name: "fk_rails_0e289a2b8e", using: :btree
+  add_index "issues", ["project_id"], name: "fk_rails_a8fe978fc7", using: :btree
 
   create_table "options", force: :cascade do |t|
     t.integer  "option_field_id", limit: 4,   null: false
