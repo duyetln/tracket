@@ -100,10 +100,11 @@ task :pry do
   system(<<-EOF
     bundle exec pry -I. -r ./boot -e '
       if ENV["RACK_ENV"] == "test"
-        factories = FactoryGirl.factories.reject do |factory|
-          factory.name == :condition
-        end
         FactoryGirl.find_definitions
+        factories = FactoryGirl.factories.reject do |factory|
+          factory.name == :condition ||
+          factory.name == :clause
+        end
         FactoryGirl.lint factories
       end
     '

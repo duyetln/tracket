@@ -24,7 +24,8 @@ RSpec.configure do |config|
 
     begin
       factories = FactoryGirl.factories.reject do |factory|
-        factory.name == :condition
+        factory.name == :condition ||
+        factory.name == :clause
       end
       DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.clean_with :truncation
