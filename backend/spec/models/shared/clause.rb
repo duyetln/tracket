@@ -1,6 +1,16 @@
 require 'models/spec_setup'
 
 shared_examples 'clause' do
+  it { is_expected.to have_many(:junctions).with_foreign_key(:parent_clause_id).inverse_of(:parent_clause) }
+  it { is_expected.to have_many(:clauses).through(:junctions) }
+  it { is_expected.to have_many(:clauses).through(:junctions) }
+
+  context 'nested clause with more than one layer' do
+    let(:subject) { nested_clause }
+
+    it { is_expected.to_not be_valid }
+  end
+
   context 'insufficient clauses or conditions' do
     let(:subject) { insufficient_clause }
 
