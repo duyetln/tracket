@@ -6,8 +6,8 @@ class Junction < ActiveRecord::Base
   belongs_to :clause
   belongs_to :condition
 
-  validates :clause_id, uniqueness: { scope: :parent_clause_id }
-  validates :condition_id, uniqueness: { scope: :parent_clause_id }
+  validates :clause_id, uniqueness: { scope: :parent_clause_id }, if: ->(j) { j.clause.present? }
+  validates :condition_id, uniqueness: { scope: :parent_clause_id }, if: ->(j) { j.condition.present? }
 
   validate :ensure_no_circular_reference
 
