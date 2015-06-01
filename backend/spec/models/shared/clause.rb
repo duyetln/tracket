@@ -1,8 +1,6 @@
 require 'models/spec_setup'
 
 shared_examples 'clause' do
-  it { is_expected.to have_many(:conditions).inverse_of(:clause) }
-
   context 'insufficient clauses or conditions' do
     let(:subject) { insufficient_clause }
 

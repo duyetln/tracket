@@ -1,6 +1,4 @@
 class Clause < ActiveRecord::Base
-  has_many :conditions, inverse_of: :clause
-
   validate :ensure_present_clauses_or_conditions
 
   protected

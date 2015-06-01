@@ -1,11 +1,9 @@
 require 'models/spec_setup'
 
 shared_examples 'condition' do
-  it { is_expected.to have_readonly_attribute(:clause_id) }
   it { is_expected.to have_readonly_attribute(:field_id) }
   it { is_expected.to have_readonly_attribute(:inversed) }
 
-  it { is_expected.to belong_to(:clause).inverse_of(:conditions) }
   it { is_expected.to belong_to(:field) }
 
   it { is_expected.to validate_presence_of(:field) }

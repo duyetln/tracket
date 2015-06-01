@@ -1,7 +1,6 @@
 class CreateConditionsTable < ActiveRecord::Migration
   def up
     create_table  :conditions do |t|
-      t.integer   :clause_id
       t.integer   :field_id, null: false
       t.string    :type, null: false
       t.boolean   :inversed, default: false
@@ -14,9 +13,6 @@ class CreateConditionsTable < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index     :conditions, :clause_id
-
-    add_foreign_key :conditions, :clauses
     add_foreign_key :conditions, :fields
     add_foreign_key :conditions, :options, column: :option_value
   end
@@ -24,9 +20,7 @@ class CreateConditionsTable < ActiveRecord::Migration
   def down
     remove_foreign_key :conditions, column: :option_value
     remove_foreign_key :conditions, :fields
-    remove_foreign_key :conditions, :clauses
 
-    remove_index  :conditions, :clause_id
     drop_table    :conditions
   end
 end

@@ -1,9 +1,7 @@
 class Condition < ActiveRecord::Base
-  attr_readonly :clause_id
   attr_readonly :field_id
   attr_readonly :inversed
 
-  belongs_to :clause, inverse_of: :conditions
   belongs_to :field
 
   validates :field, presence: true
