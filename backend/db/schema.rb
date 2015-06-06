@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601030510) do
+ActiveRecord::Schema.define(version: 20150606004311) do
 
   create_table "clauses", force: :cascade do |t|
     t.string   "type",       limit: 255, null: false
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20150601030510) do
     t.datetime "updated_at",                                                   null: false
   end
 
-  add_index "conditions", ["field_id"], name: "fk_rails_ec064057bd", using: :btree
-  add_index "conditions", ["option_value"], name: "fk_rails_4f1e9fee4a", using: :btree
+  add_index "conditions", ["field_id"], name: "fk_rails_a6d56f4128", using: :btree
+  add_index "conditions", ["option_value"], name: "fk_rails_c46b85b1fc", using: :btree
 
   create_table "field_values", force: :cascade do |t|
     t.integer  "issue_id",        limit: 4,                    null: false
@@ -49,10 +49,10 @@ ActiveRecord::Schema.define(version: 20150601030510) do
     t.datetime "updated_at",                                   null: false
   end
 
-  add_index "field_values", ["field_id"], name: "fk_rails_a33a9d8dc7", using: :btree
+  add_index "field_values", ["field_id"], name: "fk_rails_538d469e0f", using: :btree
   add_index "field_values", ["issue_id", "field_id"], name: "index_field_values_on_issue_id_and_field_id", using: :btree
   add_index "field_values", ["issue_id"], name: "index_field_values_on_issue_id", using: :btree
-  add_index "field_values", ["option_value"], name: "fk_rails_661e9dffab", using: :btree
+  add_index "field_values", ["option_value"], name: "fk_rails_cfb86c88e4", using: :btree
 
   create_table "fields", force: :cascade do |t|
     t.integer  "project_id", limit: 4,   null: false
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20150601030510) do
   end
 
   add_index "issues", ["number"], name: "index_issues_on_number", using: :btree
-  add_index "issues", ["project_id"], name: "fk_rails_e609f29e1a", using: :btree
+  add_index "issues", ["project_id"], name: "fk_rails_8e80d882e1", using: :btree
 
   create_table "junctions", force: :cascade do |t|
     t.integer "parent_clause_id", limit: 4, null: false
@@ -100,6 +100,17 @@ ActiveRecord::Schema.define(version: 20150601030510) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "queries", force: :cascade do |t|
+    t.integer  "project_id",      limit: 4,   null: false
+    t.string   "identifier",      limit: 255, null: false
+    t.string   "constraint_type", limit: 255, null: false
+    t.integer  "constraint_id",   limit: 4,   null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "queries", ["project_id"], name: "index_queries_on_project_id", using: :btree
+
   add_foreign_key "conditions", "fields"
   add_foreign_key "conditions", "options", column: "option_value"
   add_foreign_key "field_values", "fields"
@@ -108,4 +119,5 @@ ActiveRecord::Schema.define(version: 20150601030510) do
   add_foreign_key "fields", "projects"
   add_foreign_key "issues", "projects"
   add_foreign_key "options", "fields", column: "option_field_id"
+  add_foreign_key "queries", "projects"
 end

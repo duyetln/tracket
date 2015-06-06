@@ -51,3 +51,8 @@ ac.conditions << Equal.new(field: type, value: type.options.find_by(name: 'Bug')
 ac.conditions << Equal.new(field: priority, value: priority.options.find_by(name: 'High').id)
 ac.clauses << oc
 ac.save!
+
+q = Query.new
+q.project = project
+q.constraint = ac
+q.save!
