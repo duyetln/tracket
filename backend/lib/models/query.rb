@@ -23,6 +23,10 @@ class Query < ActiveRecord::Base
     Issue.where(issue[:project_id].eq(project_id).and(issue[:id].in(constraint.arel_query)))
   end
   
+  def description
+    "Query: #{constraint.description}"  
+  end
+  
   protected
   
   def set_identifier
