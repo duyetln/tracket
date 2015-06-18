@@ -13,4 +13,10 @@ class Field < ActiveRecord::Base
   def description
     "\"#{name}\""
   end
+
+  protected
+
+  def value_description(value)
+    value.nil? ? 'NULL' : (block_given? ? (yield value) : value.to_s)
+  end
 end

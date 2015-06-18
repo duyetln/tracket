@@ -6,6 +6,6 @@ class DecimalField < Field
   end
   
   def value_description(value)
-    value.to_s
+    super
   end
 end

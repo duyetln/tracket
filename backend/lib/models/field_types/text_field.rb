@@ -6,6 +6,6 @@ class TextField < Field
   end
   
   def value_description(value)
-    "\"#{value}\""
+    super(value) { |v| "\"#{v}\"" }
   end
 end

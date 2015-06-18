@@ -8,6 +8,6 @@ class OptionField < Field
   end
   
   def value_description(value)
-    "\"#{options.find(value).name}\""
+    super(value) { |v| "\"#{options.find(v).name}\"" }
   end
 end
