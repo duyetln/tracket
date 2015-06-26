@@ -11,8 +11,10 @@ class Query < ActiveRecord::Base
   belongs_to :project
   belongs_to :constraint, polymorphic: true
   
-  validates :project, presence: true
-  validates :constraint, presence: true
+  with_options presence: true do |q|
+    q.validates :project
+    q.validates :constraint
+  end
   validates :identifier, uniqueness: true
   validates :constraint_type, inclusion: { in: %w(Clause Condition) }
   
