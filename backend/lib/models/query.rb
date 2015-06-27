@@ -22,7 +22,7 @@ class Query < ActiveRecord::Base
   
   def issues
     issue = Issue.arel_table
-    Issue.where(issue[:project_id].eq(project_id).and(issue[:id].in(constraint.arel_query)))
+    Issue.includes(:field_values).where(issue[:project_id].eq(project_id).and(issue[:id].in(constraint.arel_query)))
   end
   
   def description
