@@ -20,9 +20,21 @@ class Query < ActiveRecord::Base
   
   before_create :set_identifier
   
-  def issues
+  def issues(type, offset: 0, limit: 0 )
+    type ||= :all
     issue = Issue.arel_table
-    Issue.includes(:field_values).where(issue[:project_id].eq(project_id).and(issue[:id].in(constraint.arel_query)))
+    where = issue[:project_id].eq(project_id).and(issue[:id].in(constraint.arel_query))
+
+    case type
+    when :count
+      query = issue.project(Arel.star.count).where(where)
+      Issue.count_by_sql(query.to_sql)
+    when :all
+      query = issue.project(Arel.star).where(where).order(issue[:created_at].desc)
+      query = query.skip(offset) if offset > 0
+      query = query.take(limit) if limit > 0
+      Issue.find_by_sql(query.to_sql)
+    end
   end
   
   def description
