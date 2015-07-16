@@ -37,13 +37,18 @@ describe Issue do
     it { is_expected.to_not be_valid }
   end
 
-  describe '#[]=' do
-    let(:project) { FactoryGirl.create :project }
+  describe '#[]=', :no_db_clean do
+    attr_reader :project
+
     let(:model) { FactoryGirl.build :issue, project: project }
     let :field do
       model.fields.find do |f|
         f.class.name.underscore.to_sym == field_type
       end
+    end
+
+    before :all do
+      @project = FactoryGirl.create :project
     end
 
     shared_examples '#[]=' do
@@ -118,13 +123,18 @@ describe Issue do
     end
   end
 
-  describe '#[]' do
-    let(:project) { FactoryGirl.create :project }
+  describe '#[]', :no_db_clean do
+    attr_reader :project
+
     let(:model) { FactoryGirl.build :issue, project: project }
     let :field do
       model.fields.find do |f|
         f.class.name.underscore.to_sym == field_type
       end
+    end
+
+    before :all do
+      @project = FactoryGirl.create :project
     end
 
     shared_examples '#[]' do
