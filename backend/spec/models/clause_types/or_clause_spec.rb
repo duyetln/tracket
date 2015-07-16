@@ -11,6 +11,5 @@ describe OrClause do
     clause1
   end
 
-
   it_behaves_like 'clause'
 end
