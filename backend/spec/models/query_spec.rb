@@ -123,6 +123,13 @@ describe Query do
 
         include_examples 'query'
       end
+
+      context 'impossible condition' do
+        let(:expected_count) { 0 }
+        let(:constraint) { Equal.new field: string_field, value: text_value }
+
+        include_examples 'query'
+      end
     end
 
     context 'clause constraint' do
@@ -175,6 +182,18 @@ describe Query do
 
           constraint = AndClause.new
           constraint.conditions << Equal.new(field: date_time_field, value: date_time_value)
+          constraint
+        end
+
+        include_examples 'query'
+      end
+
+      context 'impossible clause' do
+        let(:expected_count) { 0 }
+        let :constraint do
+          constraint = AndClause.new
+          constraint.conditions << NotEqual.new(field: string_field, value: string_value)
+          constraint.conditions << NotEqual.new(field: integer_field, value: integer_field)
           constraint
         end
 
