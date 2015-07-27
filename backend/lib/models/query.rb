@@ -1,5 +1,3 @@
-require 'models/clause'
-require 'models/condition'
 require 'models/issue'
 
 class Query < ActiveRecord::Base
