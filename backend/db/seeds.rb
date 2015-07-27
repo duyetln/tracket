@@ -30,7 +30,7 @@ project.save!
 
 5000.times do
   issue = project.issues.new
-  
+
   issue.name = ['Test Name 1', 'Test Name 2', 'Test Name 3', 'Test Name 4', 'Test Name 5', 'Test Name 6', 'Test Name 7'].sample
   issue[state] = state.options.sample.id
   issue[status] = status.options.sample.id
@@ -54,5 +54,5 @@ ac.save!
 
 q = Query.new
 q.project = project
-q.constraint = ac
+q.criterion = ac
 q.save!

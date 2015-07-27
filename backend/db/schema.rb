@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20150606004311) do
     t.datetime "updated_at",                                                   null: false
   end
 
-  add_index "conditions", ["field_id"], name: "fk_rails_a6d56f4128", using: :btree
-  add_index "conditions", ["option_value"], name: "fk_rails_c46b85b1fc", using: :btree
+  add_index "conditions", ["field_id"], name: "fk_rails_cfd6b6141f", using: :btree
+  add_index "conditions", ["option_value"], name: "fk_rails_6652e5d382", using: :btree
 
   create_table "field_values", force: :cascade do |t|
     t.integer  "issue_id",        limit: 4,                    null: false
@@ -49,10 +49,10 @@ ActiveRecord::Schema.define(version: 20150606004311) do
     t.datetime "updated_at",                                   null: false
   end
 
-  add_index "field_values", ["field_id"], name: "fk_rails_538d469e0f", using: :btree
+  add_index "field_values", ["field_id"], name: "fk_rails_611ad27311", using: :btree
   add_index "field_values", ["issue_id", "field_id"], name: "index_field_values_on_issue_id_and_field_id", using: :btree
   add_index "field_values", ["issue_id"], name: "index_field_values_on_issue_id", using: :btree
-  add_index "field_values", ["option_value"], name: "fk_rails_cfb86c88e4", using: :btree
+  add_index "field_values", ["option_value"], name: "fk_rails_80eb29a035", using: :btree
 
   create_table "fields", force: :cascade do |t|
     t.integer  "project_id", limit: 4,   null: false
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20150606004311) do
   end
 
   add_index "issues", ["number"], name: "index_issues_on_number", using: :btree
-  add_index "issues", ["project_id"], name: "fk_rails_8e80d882e1", using: :btree
+  add_index "issues", ["project_id"], name: "fk_rails_e22afefba4", using: :btree
 
   create_table "junctions", force: :cascade do |t|
     t.integer "parent_clause_id", limit: 4, null: false
@@ -101,12 +101,12 @@ ActiveRecord::Schema.define(version: 20150606004311) do
   end
 
   create_table "queries", force: :cascade do |t|
-    t.integer  "project_id",      limit: 4,   null: false
-    t.string   "identifier",      limit: 255, null: false
-    t.string   "constraint_type", limit: 255, null: false
-    t.integer  "constraint_id",   limit: 4,   null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "project_id",     limit: 4,   null: false
+    t.string   "identifier",     limit: 255, null: false
+    t.string   "criterion_type", limit: 255, null: false
+    t.integer  "criterion_id",   limit: 4,   null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "queries", ["project_id"], name: "index_queries_on_project_id", using: :btree
