@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606004311) do
+ActiveRecord::Schema.define(version: 20150727013218) do
 
   create_table "clauses", force: :cascade do |t|
     t.string   "type",       limit: 255, null: false
@@ -111,6 +111,28 @@ ActiveRecord::Schema.define(version: 20150606004311) do
 
   add_index "queries", ["project_id"], name: "index_queries_on_project_id", using: :btree
 
+  create_table "rules", force: :cascade do |t|
+    t.integer  "project_id",        limit: 4,                    null: false
+    t.integer  "field_id",          limit: 4,                    null: false
+    t.string   "type",              limit: 255,                  null: false
+    t.string   "prerequisite_type", limit: 255
+    t.integer  "prerequisite_id",   limit: 4
+    t.string   "assertion_type",    limit: 255
+    t.integer  "assertion_id",      limit: 4
+    t.string   "string_value",      limit: 255
+    t.text     "text_value",        limit: 65535
+    t.integer  "integer_value",     limit: 4
+    t.decimal  "decimal_value",                   precision: 10
+    t.datetime "date_time_value"
+    t.integer  "option_value",      limit: 4
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  add_index "rules", ["field_id"], name: "fk_rails_6a510dd25b", using: :btree
+  add_index "rules", ["option_value"], name: "fk_rails_8d560282e9", using: :btree
+  add_index "rules", ["project_id"], name: "index_rules_on_project_id", using: :btree
+
   add_foreign_key "conditions", "fields"
   add_foreign_key "conditions", "options", column: "option_value"
   add_foreign_key "field_values", "fields"
@@ -120,4 +142,7 @@ ActiveRecord::Schema.define(version: 20150606004311) do
   add_foreign_key "issues", "projects"
   add_foreign_key "options", "fields", column: "option_field_id"
   add_foreign_key "queries", "projects"
+  add_foreign_key "rules", "fields"
+  add_foreign_key "rules", "options", column: "option_value"
+  add_foreign_key "rules", "projects"
 end
