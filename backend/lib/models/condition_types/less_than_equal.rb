@@ -6,7 +6,7 @@ require 'models/field_types/option_field'
 class LessThanEqual < Condition
   validates :field_class, exclusion: { in: [StringField, TextField, OptionField], message: "#{self.name} is not supported for %{value}" }
 
-  def satisfy?(issue)
+  def satisfied?(issue)
     flip_bool(issue[field] <= value)
   end
 

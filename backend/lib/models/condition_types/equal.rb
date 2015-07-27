@@ -1,7 +1,7 @@
 require 'models/condition'
 
 class Equal < Condition
-  def satisfy?(issue)
+  def satisfied?(issue)
     flip_bool(issue[field] == value)
   end
 

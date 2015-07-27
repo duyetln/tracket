@@ -1,9 +1,9 @@
 require 'models/clause'
 
 class OrClause < Clause
-  def satisfy?(issue)
-    conditions.any? { |c| c.satisfy?(issue) } ||
-    clauses.any? { |c| c.satisfy?(issue) }
+  def satisfied?(issue)
+    conditions.any? { |c| c.satisfied?(issue) } ||
+    clauses.any? { |c| c.satisfied?(issue) }
   end
 
   def arel_query

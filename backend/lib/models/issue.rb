@@ -30,8 +30,8 @@ class Issue < ActiveRecord::Base
     field_value(field).value = value
   end
 
-  def satisfy?(clause_or_condition)
-    clause_or_condition.satisfy?(self)
+  def satisfied?(clause_or_condition)
+    clause_or_condition.satisfied?(self)
   end
 
   protected

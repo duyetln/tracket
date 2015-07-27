@@ -1,9 +1,9 @@
 require 'models/clause'
 
 class AndClause < Clause
-  def satisfy?(issue)
-    conditions.all? { |c| c.satisfy?(issue) } &&
-    clauses.all? { |c| c.satisfy?(issue) }
+  def satisfied?(issue)
+    conditions.all? { |c| c.satisfied?(issue) } &&
+    clauses.all? { |c| c.satisfied?(issue) }
   end
 
   def arel_query

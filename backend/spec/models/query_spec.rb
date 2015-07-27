@@ -74,7 +74,7 @@ describe Query do
       it 'retrieves issues correctly' do
         expect(issues.size).to eq(expected_count)
         issues.each do |issue|
-          expect(issue.satisfy?(model.criterion)).to eq(true)
+          expect(issue.satisfied?(model.criterion)).to eq(true)
         end
       end
 

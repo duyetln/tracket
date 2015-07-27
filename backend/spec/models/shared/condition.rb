@@ -14,18 +14,18 @@ shared_examples 'condition' do
     end
   end
 
-  describe '#satisfy?' do
+  describe '#satisfied?' do
     context 'not inversed' do
       it 'is true' do
         model.inversed = false
-        expect(model.satisfy?(issue)).to eq(true)
+        expect(model.satisfied?(issue)).to eq(true)
       end
     end
 
     context 'inversed' do
       it 'is false' do
         model.inversed = true
-        expect(model.satisfy?(issue)).to eq(false)
+        expect(model.satisfied?(issue)).to eq(false)
       end
     end
   end
