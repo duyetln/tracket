@@ -34,6 +34,10 @@ class Issue < ActiveRecord::Base
     clause_or_condition.satisfied?(self)
   end
 
+  def modified?(field = nil)
+    field ? field_value(field).modified? : field_values.any?(&:modified?)
+  end
+
   protected
 
   def ensure_single_field_value
