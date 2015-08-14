@@ -8,4 +8,8 @@ class AssertionRule < Rule
 
   validates :assertion, presence: true
   validates :assertion_type, inclusion: { in: %w(Clause Condition) }
+
+  def description
+    prerequisite_description + "assert (#{assertion.description})"
+  end
 end
