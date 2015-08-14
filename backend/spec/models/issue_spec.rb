@@ -204,4 +204,56 @@ describe Issue do
       include_examples '#[]'
     end
   end
+
+  describe '#modified?' do
+    before :each do
+      model.save!
+    end
+
+    context 'no change' do
+      context 'checking any field' do
+        it 'is false' do
+          expect(model.modified?).to eq(false)
+        end
+      end
+
+      context 'checking all fields' do
+        it 'is false' do
+          model.project.fields.each do |f|
+            expect(model.modified?(f)).to eq(false)
+          end
+        end
+      end
+    end
+
+    context 'existing change' do
+      let(:project) { model.project }
+      let(:field) { project.fields.find { |f| f.class == StringField } }
+      let(:change) { rand_str }
+
+      before :each do
+        model[field] = change
+      end
+
+      context 'checking any field' do
+        it 'is true' do
+          expect(model.modified?).to eq(true)
+        end
+      end
+
+      context 'checking changed field' do
+        it 'is true' do
+          expect(model.modified?(field)).to eq(true)
+        end
+      end
+
+      context 'checking all other fields' do
+        it 'is false' do
+          project.fields.reject { |f| f == field }.each do |f|
+            expect(model.modified?(f)).to eq(false)
+          end
+        end
+      end
+    end
+  end
 end
