@@ -6,7 +6,7 @@ class Issue < ActiveRecord::Base
   attr_readonly :number
 
   belongs_to :project, inverse_of: :issues
-  has_many :field_values, inverse_of: :issue
+  has_many :field_values, inverse_of: :issue, autosave: true
 
   with_options presence: true do |i|
     i.validates :name

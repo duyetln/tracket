@@ -22,7 +22,7 @@ describe FieldValue do
   it { is_expected.to have_readonly_attribute(:issue_id) }
   it { is_expected.to have_readonly_attribute(:field_id) }
 
-  it { is_expected.to belong_to(:issue).inverse_of(:field_values) }
+  it { is_expected.to belong_to(:issue).inverse_of(:field_values).touch(true) }
   it { is_expected.to belong_to(:field) }
 
   it { is_expected.to validate_presence_of(:issue) }

@@ -5,7 +5,7 @@ describe Issue do
   it { is_expected.to have_readonly_attribute(:number) }
 
   it { is_expected.to belong_to(:project).inverse_of(:issues) }
-  it { is_expected.to have_many(:field_values).inverse_of(:issue) }
+  it { is_expected.to have_many(:field_values).inverse_of(:issue).autosave(true) }
 
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:field_values) }
