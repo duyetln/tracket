@@ -14,6 +14,7 @@ class Issue < ActiveRecord::Base
   end
   validates :number, uniqueness: { scope: :project_id }
   validate :ensure_single_field_value
+  validate :ensure_satisfied_rules
 
   after_initialize :initialize_field_values
   before_create :set_number
@@ -34,6 +35,10 @@ class Issue < ActiveRecord::Base
     clause_or_condition.satisfied?(self)
   end
 
+  def qualified?(rule)
+    rule.qualified?(self)
+  end
+
   def modified?(field = nil)
     field ? field_value(field).modified? : field_values.any?(&:modified?)
   end
@@ -43,6 +48,14 @@ class Issue < ActiveRecord::Base
   def ensure_single_field_value
     unless fields.all? { |f| field_values.select { |fv| fv.field == f }.size == 1 }
       errors.add(:issue, 'must have exactly one field value for each field')
+    end
+  end
+
+  def ensure_satisfied_rules
+    project.rules.each do |rule|
+      if qualified?(rule) && !satisfied?(rule.assertion)
+        errors.add(:issue, rule.description)
+      end
     end
   end
 
