@@ -56,3 +56,21 @@ q = Query.new
 q.project = project
 q.criterion = ac
 q.save!
+
+acr = AndClause.new
+acr.conditions << Equal.new(field: state, value: state.options.find_by(name: 'Closed').id)
+acr.conditions << NotEqual.new(field: complete_date, value: nil)
+
+r1 = project.rules.new
+r1.prerequisite = Equal.new(field: status, value: status.options.find_by(name: 'Completed').id)
+r1.assertion = acr
+r1.save!
+
+r2 = project.rules.new
+r2.prerequisite = NotEqual.new(field: status, value: status.options.find_by(name: 'No Activity').id)
+r2.assertion = NotEqual.new(field: start_date, value: nil)
+r2.save!
+
+r3 = project.rules.new
+r3.assertion = NotEqual.new(field: version, value: nil)
+r3.save!
