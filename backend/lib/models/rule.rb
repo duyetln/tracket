@@ -12,7 +12,7 @@ class Rule < ActiveRecord::Base
   validates :project, presence: true
   validates :assertion, presence: true
   validates :assertion_type, inclusion: { in: %w(Clause Condition) }
-  validates :prerequisite_type, inclusion: { in: %w(Clause Condition) }
+  validates :prerequisite_type, inclusion: { in: %w(Clause Condition) }, if: ->(r) { r.prerequisite.present? }
 
   def qualified?(issue)
     prerequisite.blank? || issue.satisfied?(prerequisite)
