@@ -28,20 +28,6 @@ complete_date = DateTimeField.new name: 'Complete Date'
 project.fields << state << status << type << priority << version << start_date << complete_date
 project.save!
 
-5000.times do
-  issue = project.issues.new
-
-  issue.name = ['Test Name 1', 'Test Name 2', 'Test Name 3', 'Test Name 4', 'Test Name 5', 'Test Name 6', 'Test Name 7'].sample
-  issue[state] = state.options.sample.id
-  issue[status] = status.options.sample.id
-  issue[type] = type.options.sample.id
-  issue[priority] = priority.options.sample.id
-  issue[version] = ['0.1.0', '0.2.0', '0.3.0', '0.4.0'].sample
-  issue[start_date] = (@start_dates ||= [5.days.ago, 4.days.ago, 3.days.ago, 2.days.ago, 1.days.ago]).sample
-  issue[complete_date] = (@complete_dates ||= [1.weeks.from_now, 2.weeks.from_now, 3.weeks.from_now, 4.weeks.from_now, nil]).sample
-  issue.save!
-end
-
 oc = OrClause.new
 oc.conditions << Equal.new(field: state, value: state.options.find_by(name: 'Open').id)
 oc.conditions << Equal.new(field: status, value: status.options.find_by(name: 'No Activity').id)
@@ -74,3 +60,19 @@ r2.save!
 r3 = project.rules.new
 r3.assertion = NotEqual.new(field: version, value: nil)
 r3.save!
+
+total = 5000
+current = 0
+while current < total do
+  issue = project.issues.new
+  issue.name = ['Test Name 1', 'Test Name 2', 'Test Name 3', 'Test Name 4', 'Test Name 5', 'Test Name 6', 'Test Name 7'].sample
+  issue[state] = state.options.sample.id
+  issue[status] = status.options.sample.id
+  issue[type] = type.options.sample.id
+  issue[priority] = priority.options.sample.id
+  issue[version] = ['0.1.0', '0.2.0', '0.3.0', '0.4.0'].sample
+  issue[start_date] = (@start_dates ||= [5.days.ago, 4.days.ago, 3.days.ago, 2.days.ago, 1.days.ago]).sample
+  issue[complete_date] = (@complete_dates ||= [1.weeks.from_now, 2.weeks.from_now, 3.weeks.from_now, 4.weeks.from_now, nil]).sample
+
+  current += 1 if issue.save
+end
