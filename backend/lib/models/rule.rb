@@ -5,7 +5,7 @@ class Rule < ActiveRecord::Base
   attr_readonly :prerequisite_type
   attr_readonly :prerequisite_id
 
-  belongs_to :project
+  belongs_to :project, inverse_of: :rules
   belongs_to :assertion, polymorphic: true
   belongs_to :prerequisite, polymorphic: true
 
