@@ -37,6 +37,72 @@ describe Issue do
     it { is_expected.to_not be_valid }
   end
 
+  context 'rules present', :no_db_clean do
+    attr_reader :project
+
+    let(:model) { FactoryGirl.build :issue, project: project }
+    let(:string_field) { model.fields.find { |f| f.class == StringField } }
+    let(:integer_field) { model.fields.find { |f| f.class == IntegerField } }
+    before :each do
+      project.rules.destroy_all
+      project.rules << rule
+    end
+
+    before :all do
+      @project = FactoryGirl.create :project
+    end
+
+    shared_examples 'checking rules' do
+      context 'valid model' do
+        before :each do
+          model[string_field] = 'String field'
+          expect(model.satisfied?(rule.assertion)).to eq(true)
+        end
+
+        it { is_expected.to be_valid }
+      end
+
+      context 'invalid model' do
+        before :each do
+          model[string_field] = nil
+          expect(model.satisfied?(rule.assertion)).to eq(false)
+        end
+
+        it { is_expected.to_not be_valid }
+      end
+    end
+
+    context 'prerequisite present' do
+      let(:rule) { FactoryGirl.build :rule, :prerequisite, project: project }
+      before(:each) { expect(rule.prerequisite).to be_present }
+
+      context 'prerequisite satisfied' do
+        before :each do
+          model[integer_field] = 1
+          expect(model.qualified?(rule)).to eq(true)
+        end
+
+        include_examples 'checking rules'
+      end
+
+      context 'prerequisite not satisfied' do
+        before :each do
+          model[integer_field] = 2
+          expect(model.qualified?(rule)).to eq(false)
+        end
+
+        it { is_expected.to be_valid }
+      end
+    end
+
+    context 'no prerequisite' do
+      let(:rule) { FactoryGirl.build :rule, project: project }
+      before(:each) { expect(rule.prerequisite).to_not be_present }
+
+      include_examples 'checking rules'
+    end
+  end
+
   describe '#[]=', :no_db_clean do
     attr_reader :project
 
