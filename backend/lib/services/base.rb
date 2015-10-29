@@ -18,5 +18,9 @@ module Services
     use Rack::Parser, parsers: {
       'application/json' => proc { |data| Yajl::Parser.parse data }
     }
+
+    get '/ping' do
+      'OK'
+    end
   end
 end
