@@ -12,9 +12,10 @@ gem 'rack-parser', require: 'rack/parser'
 gem 'hashie'
 gem 'sinatra-contrib'
 gem 'active_model_serializers'
+gem 'json-schema'
 
 group :development do
-  gem 'thin'
+  gem 'puma'
 end
 
 group :test do
