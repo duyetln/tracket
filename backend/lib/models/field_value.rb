@@ -19,6 +19,6 @@ class FieldValue < ActiveRecord::Base
   end
 
   def modified?
-    send("#{field.value_column}_changed?")
+    !!send("#{field.value_column}_changed?")
   end
 end
