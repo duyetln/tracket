@@ -12,10 +12,7 @@ gem 'rack-parser', require: 'rack/parser'
 gem 'hashie'
 gem 'sinatra-contrib'
 gem 'active_model_serializers'
-
-group :development do
-  gem 'puma'
-end
+gem 'puma'
 
 group :test do
   gem 'timecop'
