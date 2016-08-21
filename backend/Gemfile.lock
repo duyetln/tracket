@@ -16,7 +16,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    addressable (2.3.8)
     arel (6.0.3)
     backports (3.6.4)
     bcrypt (3.1.10)
@@ -32,8 +31,6 @@ GEM
     hashie (3.4.0)
     i18n (0.7.0)
     json (1.8.3)
-    json-schema (2.5.1)
-      addressable (~> 2.3.7)
     method_source (0.8.2)
     minitest (5.9.0)
     multi_json (1.11.0)
@@ -103,7 +100,6 @@ DEPENDENCIES
   factory_girl
   faker
   hashie
-  json-schema
   mysql2
   pry
   puma
