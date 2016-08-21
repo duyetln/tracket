@@ -32,6 +32,10 @@ module Services
         bad_request! meta: env['sinatra.error'].message.capitalize
       end
 
+      error ActiveRecord::SubclassNotFound do
+        bad_request! meta: 'Specified type value is invalid'
+      end
+
       error StandardError do
         server_error!
       end
