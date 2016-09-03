@@ -1,0 +1,15 @@
+AllCops:
+  Includes:
+    - Rakefile
+    - app/**/*.rb
+    - config/**/*.rb
+    - db/migrate/*.rb
+    - lib/**/*.rb
+    - spec/**/*.rb
+  Excludes:
+    - db/schema.rb
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: false
