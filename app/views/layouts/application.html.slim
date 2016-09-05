@@ -1,0 +1,38 @@
+doctype html
+html
+  head
+    title Tracket - A Simple Issue Tracker
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
+    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css'
+    = csrf_meta_tags
+  body
+    div.navbar.navbar-default.navbar-static-top
+      div.container-fluid
+        div.navbar-header
+          = link_to 'Tracket', root_path, class: 'navbar-brand'
+        ul.nav.navbar-nav.navbar-right
+          li.dropdown
+            = link_to nil, class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+              ' Change Project
+              i.fa.fa-chevron-down
+            ul.dropdown-menu
+              - @projects.each do |project|
+                li
+                  a = project.name
+    div.container-fluild
+      div.message
+        - { info: { style: 'alert-info', icon: 'fa-info-circle' }, \
+            success: { style: 'alert-success', icon: 'fa-check-circle' }, \
+            warning: { style: 'alert-warning', icon: 'fa-exclamation-circle' }, \
+            error: { style: 'alert-danger', icon: 'fa-times-circle' } }.each do |key, config|
+          - if flash[key].present?
+            div.alert.alert-dismissible.fade.in class="#{config[:style]}"
+              button.close data-dismiss='alert'
+                i.fa.fa-close
+              i.fa.fa-lg  class="#{config[:icon]}"
+              strong
+                |  #{flash[key]}
+
+      div.content
+        = yield
